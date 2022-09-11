@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-09 13:54
- * @FilePath: \ESP32_LVGL\main\Lvgl_Task\src\gui_guider.c
+ * @LastEditTime: 2022-09-11 12:17
+ * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\src\gui_guider.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -17,26 +17,39 @@
 #include "gui_guider.h"
 
 
-
-void crate_ui_animation(lv_ui *ui)
+void crate_ui_animation(lv_ui *ui, uint8_t direction, lv_img_dsc_t *Input, lv_img_dsc_t *Output)
 {
-	lv_anim_init(&ui->scr_out);
-	lv_anim_set_exec_cb(&ui->scr_out, (lv_anim_exec_xcb_t) lv_obj_set_y);
-	lv_anim_set_var(&ui->scr_out, ui->screen_img_out);
-	lv_anim_set_time(&ui->scr_out, 1000);
-	lv_anim_set_values(&ui->scr_out, 50, 240);
-	lv_anim_set_path_cb(&ui->scr_out, lv_anim_path_overshoot  );
-	lv_anim_start(&ui->scr_out);	
-	
 	lv_anim_init(&ui->scr_in);	/* 初始化动画*/
 	lv_anim_set_exec_cb(&ui->scr_in, (lv_anim_exec_xcb_t) lv_obj_set_y);/* 设置“动画制作”功能 */	
 	lv_anim_set_var(&ui->scr_in, ui->screen_img_in);	
 	lv_anim_set_time(&ui->scr_in, 1000);/* 动画时长[ms] */
-	lv_anim_set_values(&ui->scr_in, -240, 50);/* 设置开始结束值 */
+	if(direction)
+	{
+		lv_anim_set_values(&ui->scr_in, -240, 50);/* 设置开始结束值 */
+	}
+	else
+	{
+		lv_anim_set_values(&ui->scr_in, 240, 50);/* 设置开始结束值 */
+	}
+	lv_img_set_src(ui->screen_img_in, Input);
 	lv_anim_set_path_cb(&ui->scr_in, lv_anim_path_overshoot  );/* 设置路径（曲线）。默认为线性 */    
-	lv_anim_start(&ui->scr_in);  
+	lv_anim_start(&ui->scr_in); 		
 	
-
+	lv_anim_init(&ui->scr_out);
+	lv_anim_set_exec_cb(&ui->scr_out, (lv_anim_exec_xcb_t) lv_obj_set_y);
+	lv_anim_set_var(&ui->scr_out, ui->screen_img_out);
+	lv_anim_set_time(&ui->scr_out, 1000);
+	if(direction)
+	{
+		lv_anim_set_values(&ui->scr_out, 50, 240);
+	}
+	else
+	{
+		lv_anim_set_values(&ui->scr_out, 50, -240);
+	}
+	lv_img_set_src(ui->screen_img_out, Output);
+	lv_anim_set_path_cb(&ui->scr_out, lv_anim_path_overshoot  );
+	lv_anim_start(&ui->scr_out); 
 }
 
 void setup_scr_screen(lv_ui *ui){

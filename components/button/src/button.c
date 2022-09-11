@@ -13,48 +13,48 @@ uint8_t Button_Value = BT_NONE;
 void Btn1_Down_CallBack(void *btn)
 {
 	Button_Value = BT1_DOWN;
-	printf("Button 1 down!\n");
+	//printf("Button 1 down!\n");
 }
 //按键一双击
 void Btn1_Double_CallBack(void *btn)
 {
 	Button_Value = BT1_DOUBLE;
-	printf("Button 1 Double!\n");
+	//printf("Button 1 Double!\n");
 }
 //按键一双击
 void Btn1_Long_CallBack(void *btn)
 {
 	Button_Value = BT1_LONG;
-	printf("Button 1 Long!\n");
+	//printf("Button 1 Long!\n");
 }
 void Btn1_Long_Free_CallBack(void *btn)
 {
 	Button_Value = BT1_LONGFREE;
-	printf("Button 1 Long_Free!\n");
+	//printf("Button 1 Long_Free!\n");
 }
 ///////////////////////////////////////////////////////
 //按键二单击
 void Btn2_Down_CallBack(void *btn)
 {
 	Button_Value = BT2_DOWN;
-	printf("Button 2 down!\n");
+	//printf("Button 2 down!\n");
 }
 //按键一双击
 void Btn2_Double_CallBack(void *btn)
 {
 	Button_Value = BT2_DOUBLE;
-	printf("Button 2 Double!\n");
+	//printf("Button 2 Double!\n");
 }
 //按键一双击
 void Btn2_Long_CallBack(void *btn)
 {
 	Button_Value = BT2_LONG;
-	printf("Button 2 Long!\n");
+	//printf("Button 2 Long!\n");
 }
 void Btn2_Long_Free_CallBack(void *btn)
 {
 	Button_Value = BT2_LONGFREE;
-	printf("Button 2 Long_Free!\n");
+	//printf("Button 2 Long_Free!\n");
 }
 
 uint8_t Read_KEY1_Level(void)

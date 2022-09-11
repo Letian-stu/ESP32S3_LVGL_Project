@@ -1,4 +1,4 @@
-# Install script for directory: D:/esp32idf/espprj/ESP32_LVGL/components/easyio_lib
+# Install script for directory: D:/Desktop/github/ESP32S3_LVGL_Project/components/easyio_lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

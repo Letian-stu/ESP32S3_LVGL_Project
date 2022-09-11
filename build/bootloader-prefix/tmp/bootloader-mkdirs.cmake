@@ -5,15 +5,15 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "D:/esp32idf/espidf/esp-idf/components/bootloader/subproject"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix/tmp"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix/src/bootloader-stamp"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix/src"
-  "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix/tmp"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix/src"
+  "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/esp32idf/espprj/ESP32_LVGL/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/Desktop/github/ESP32S3_LVGL_Project/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()

@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:12
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-09 15:33
+ * @LastEditTime: 2022-09-09 15:39
  * @FilePath: \ESP32S3_LVGL_Project\main\app_main.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -34,7 +34,7 @@ void Menu_Switch(void)
 	if (Button_Value)
 	{
 		err=xQueueSend(Key_Queue,&Button_Value,0);
-        if(err==errQUEUE_FULL)   	//·¢ËÍ°´¼üÖµ
+        if( err == errQUEUE_FULL )  
         {
             ESP_LOGE(TAG, "Key_Queue send err");
         }
