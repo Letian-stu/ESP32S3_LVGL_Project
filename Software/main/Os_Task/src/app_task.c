@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:12
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 14:21
- * @FilePath: \ESP32S3_LVGL_Project\main\Os_Task\src\app_task.c
+ * @LastEditTime: 2022-09-13 20:29
+ * @FilePath: \Software\main\Os_Task\src\app_task.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
  */
@@ -55,13 +55,17 @@ void GUI_Change_thread_entry(void *pvParameters)
 										GUI_Menu_Num = LastMenuNum - 1;
 									}
 					break;
-				case BT1_DOUBLE:		
+				case BT1_DOUBLE:
+				 					lv_example_tileview(&guider_ui);		
 					break;
-				case BT2_DOUBLE:		
+				case BT2_DOUBLE:	
+				
 					break;	
-				case BT1_LONG:		
+				case BT1_LONG:
+									lv_obj_set_tile_id(guider_ui.tv, 1, 1, LV_ANIM_ON);	
 					break;
 				case BT2_LONG:		
+
 					break;	
 				default:
 					break;

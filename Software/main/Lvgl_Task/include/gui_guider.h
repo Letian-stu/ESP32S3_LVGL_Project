@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 15:19
- * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\include\gui_guider.h
+ * @LastEditTime: 2022-09-13 19:58
+ * @FilePath: \Software\main\Lvgl_Task\include\gui_guider.h
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -17,6 +17,8 @@ typedef struct
 {
 	lv_obj_t *bg;
 
+	lv_obj_t *tv;
+
 	lv_obj_t *screen;
 	lv_obj_t *screen_img_in;
 	lv_obj_t *screen_img_out;
@@ -26,7 +28,7 @@ typedef struct
 }lv_ui;
 
 extern lv_ui guider_ui;
-
+void lv_example_tileview(lv_ui *ui);
 void setup_ui(lv_ui *ui);
 void setup_scr_screen(lv_ui *ui);
 void crate_ui_animation(lv_ui *ui, uint8_t direction, lv_img_dsc_t *Input, lv_img_dsc_t *Output);

@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 14:08
- * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\src\gui_guider.c
+ * @LastEditTime: 2022-09-13 20:34
+ * @FilePath: \Software\main\Lvgl_Task\src\gui_guider.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -16,6 +16,40 @@
 #include <stdio.h>
 #include "gui_guider.h"
 
+void lv_example_tileview(lv_ui *ui)
+{
+    ui->tv = lv_tileview_create(lv_scr_act());
+
+    /*Tile1: just a label*/
+    lv_obj_t * tile1 = lv_tileview_add_tile(ui->tv, 0, 0, LV_DIR_BOTTOM);
+    lv_obj_t * label = lv_label_create(tile1);
+    lv_label_set_text(label, "Scroll down");
+    lv_obj_center(label);
+
+    /*Tile2: a button*/
+    lv_obj_t * tile2 = lv_tileview_add_tile(ui->tv, 0, 1, LV_DIR_TOP | LV_DIR_RIGHT);
+    lv_obj_t * btn = lv_btn_create(tile2);
+
+    label = lv_label_create(btn);
+    lv_label_set_text(label, "Scroll up or right");
+    lv_obj_set_size(btn, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_center(btn);
+
+    /*Tile3: a list*/
+    lv_obj_t * tile3 = lv_tileview_add_tile(ui->tv, 1, 1, LV_DIR_LEFT);
+    lv_obj_t * list = lv_list_create(tile3);
+    lv_obj_set_size(list, LV_PCT(100), LV_PCT(100));
+    lv_list_add_btn(list, NULL, "One");
+    lv_list_add_btn(list, NULL, "Two");
+    lv_list_add_btn(list, NULL, "Three");
+    lv_list_add_btn(list, NULL, "Four");
+    lv_list_add_btn(list, NULL, "Five");
+    lv_list_add_btn(list, NULL, "Six");
+    lv_list_add_btn(list, NULL, "Seven");
+    lv_list_add_btn(list, NULL, "Eight");
+    lv_list_add_btn(list, NULL, "Nine");
+    lv_list_add_btn(list, NULL, "Ten");
+}
 
 void crate_ui_animation(lv_ui *ui, uint8_t direction, lv_img_dsc_t *Input, lv_img_dsc_t *Output)
 {
@@ -96,7 +130,7 @@ void setup_scr_screen(lv_ui *ui){
 	lv_obj_add_flag(ui->screen_img_out, LV_OBJ_FLAG_CLICKABLE);
 	lv_img_set_src(ui->screen_img_out,&_cap_150x150);
 	lv_img_set_pivot(ui->screen_img_out, 0,0);
-	lv_img_set_angle(ui->screen_img_out, 0);                 
+	lv_img_set_angle(ui->screen_img_out, 0);    	             
 }
 
 

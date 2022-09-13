@@ -1669,7 +1669,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_lvgl_esp32_drivers_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = D:\esp32idf\esptools\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SD:\Desktop\github\ESP32S3_LVGL_Project -BD:\Desktop\github\ESP32S3_LVGL_Project\build
+  command = D:\esp32idf\esptools\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SD:\Desktop\github\ESP32S3_LVGL_Project\Software -BD:\Desktop\github\ESP32S3_LVGL_Project\Software\build
   description = Re-running CMake...
   generator = 1
 
