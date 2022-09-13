@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-08 22:37
- * @FilePath: \ESP32_LVGL\main\Lvgl_Task\src\lvgl_init.c
+ * @LastEditTime: 2022-09-11 15:28
+ * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\src\lvgl_init.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -66,36 +66,53 @@ static void event_cb(lv_event_t * e)
     lv_draw_label(dsc->draw_ctx, &label_dsc, &txt_area, buf, NULL);
 }
 
-void Boot_UI_Init(void)
+void Boot_UI_Init(lv_ui *ui)
 {	
-    // background = lv_scr_act();   /*Create a parent object on the current screen*/
-    // lv_obj_set_pos(background, 0, 0);
-    // lv_obj_set_size(background, 240, 240); /*Set the size of the parent*/
-    // lv_scr_load(background);
+    background = lv_scr_act();   /*Create a parent object on the current screen*/
+    lv_obj_set_pos(background, 0, 0);
+    lv_obj_set_size(background, 240, 240); /*Set the size of the parent*/
+    lv_scr_load(background);
 
-    // label_1 = lv_label_create(background);//创建label
-    // lv_label_set_recolor(label_1,1);//颜色可变换
-    // lv_label_set_long_mode(label_1,LV_LABEL_LONG_WRAP);//设置滚动模式
-    // // lv_obj_set_pos(label_1,50,50);//设置位置
-    // lv_obj_align(label_1, LV_ALIGN_TOP_MID, 0, 90);
-    // lv_label_set_text(label_1, "Hello Tian!");//设定文本内容
+	//Write codes bg
+	ui->bg = lv_img_create(background);
+	lv_obj_set_pos(ui->bg, 0, 0);
+	lv_obj_set_size(ui->bg, 240, 240);
 
-    // bar = lv_bar_create(background);
-    // lv_obj_add_event_cb(bar, event_cb, LV_EVENT_DRAW_PART_END, NULL);
-    // lv_obj_set_size(bar, 200, 20);
-    // lv_obj_center(bar);
+	//Write style state: LV_STATE_DEFAULT for style_bg_main_main_default
+	static lv_style_t style_bg_main_main_default;
+	lv_style_reset(&style_bg_main_main_default);
+	lv_style_set_img_recolor(&style_bg_main_main_default, lv_color_make(0xff, 0xff, 0xff));
+	lv_style_set_img_recolor_opa(&style_bg_main_main_default, 0);
+	lv_style_set_img_opa(&style_bg_main_main_default, 255);
+	lv_obj_add_style(ui->bg, &style_bg_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
+	lv_obj_add_flag(ui->bg, LV_OBJ_FLAG_CLICKABLE);
+	lv_img_set_src(ui->bg,&_bg_240x240);
+	lv_img_set_pivot(ui->bg, 0,0);
+	lv_img_set_angle(ui->bg, 0);
 
-    // lv_anim_t a;
-    // lv_anim_init(&a);//初始化动画
-    // lv_anim_set_var(&a, bar);
-    // lv_anim_set_values(&a, 0, 100);//开始和结束的值
-    // lv_anim_set_exec_cb(&a, set_value);//设置动画函数
-    // lv_anim_set_time(&a, 2000);//设置动画的持续时间
-    // //lv_anim_set_playback_time(&a, 1000);//恢复动画时间
-    // lv_anim_start(&a);
+    label_1 = lv_label_create(ui->bg);//创建label
+    lv_label_set_recolor(label_1,1);//颜色可变换
+    lv_label_set_long_mode(label_1,LV_LABEL_LONG_WRAP);//设置滚动模式
+    // lv_obj_set_pos(label_1,50,50);//设置位置
+    lv_obj_align(label_1, LV_ALIGN_TOP_MID, 0, 90);
+    lv_label_set_text(label_1, "Hello Tian!");//设定文本内容
 
-    // lv_obj_del_delayed(label_1, 2200);
-    // lv_obj_del_delayed(bar, 2200);
+    bar = lv_bar_create(ui->bg);
+    lv_obj_add_event_cb(bar, event_cb, LV_EVENT_DRAW_PART_END, NULL);
+    lv_obj_set_size(bar, 200, 20);
+    lv_obj_center(bar);
+
+    lv_anim_t a;
+    lv_anim_init(&a);//初始化动画
+    lv_anim_set_var(&a, bar);
+    lv_anim_set_values(&a, 0, 100);//开始和结束的值
+    lv_anim_set_exec_cb(&a, set_value);//设置动画函数
+    lv_anim_set_time(&a, 2000);//设置动画的持续时间
+    //lv_anim_set_playback_time(&a, 1000);//恢复动画时间
+    lv_anim_start(&a);
+
+    lv_obj_del_delayed(label_1, 2200);
+    lv_obj_del_delayed(bar, 2200);
 }
 
 void APP_UI_Init(void)
@@ -147,8 +164,8 @@ void bootguiTask(void *pvParameter)
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
     ESP_LOGI(TAG, "Start UI Init!");
 
-    Boot_UI_Init();//基础UI渲染函数
-
+    Boot_UI_Init(&guider_ui);//基础UI渲染函数
+    vTaskDelay(2200 / portTICK_PERIOD_MS);
     free(buf1);
 #ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
     free(buf2);

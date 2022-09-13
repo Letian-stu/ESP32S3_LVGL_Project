@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 12:19
+ * @LastEditTime: 2022-09-11 15:19
  * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\include\gui_guider.h
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
@@ -15,7 +15,8 @@
 
 typedef struct
 {
-	/* ͼƬ */
+	lv_obj_t *bg;
+
 	lv_obj_t *screen;
 	lv_obj_t *screen_img_in;
 	lv_obj_t *screen_img_out;
@@ -33,5 +34,5 @@ LV_IMG_DECLARE(_game_150x150);
 LV_IMG_DECLARE(_konhz_150x150);
 LV_IMG_DECLARE(_set_150x150);
 LV_IMG_DECLARE(_cap_150x150);
-
+LV_IMG_DECLARE(_bg_240x240);
 #endif

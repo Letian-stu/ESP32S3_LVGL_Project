@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 12:17
+ * @LastEditTime: 2022-09-11 14:08
  * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\src\gui_guider.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
@@ -60,7 +60,7 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_main_main_default
 	static lv_style_t style_screen_main_main_default;
 	lv_style_reset(&style_screen_main_main_default);
-	lv_style_set_bg_color(&style_screen_main_main_default, lv_color_make(0xff, 0xff, 0xff));
+	lv_style_set_bg_color(&style_screen_main_main_default, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_bg_opa(&style_screen_main_main_default, 0);
 	lv_obj_add_style(ui->screen, &style_screen_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
 
@@ -72,7 +72,7 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_img_in_main_main_default
 	static lv_style_t style_screen_img_in_main_main_default;
 	lv_style_reset(&style_screen_img_in_main_main_default);
-	lv_style_set_img_recolor(&style_screen_img_in_main_main_default, lv_color_make(0xff, 0xff, 0xff));
+	lv_style_set_img_recolor(&style_screen_img_in_main_main_default, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_img_recolor_opa(&style_screen_img_in_main_main_default, 0);
 	lv_style_set_img_opa(&style_screen_img_in_main_main_default, 255);
 	lv_obj_add_style(ui->screen_img_in, &style_screen_img_in_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -89,12 +89,12 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_img_out_main_main_default
 	static lv_style_t style_screen_img_out_main_main_default;
 	lv_style_reset(&style_screen_img_out_main_main_default);
-	lv_style_set_img_recolor(&style_screen_img_out_main_main_default, lv_color_make(0xff, 0xff, 0xff));
+	lv_style_set_img_recolor(&style_screen_img_out_main_main_default, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_img_recolor_opa(&style_screen_img_out_main_main_default, 0);
 	lv_style_set_img_opa(&style_screen_img_out_main_main_default, 255);
 	lv_obj_add_style(ui->screen_img_out, &style_screen_img_out_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
 	lv_obj_add_flag(ui->screen_img_out, LV_OBJ_FLAG_CLICKABLE);
-	lv_img_set_src(ui->screen_img_out,&_game_150x150);
+	lv_img_set_src(ui->screen_img_out,&_cap_150x150);
 	lv_img_set_pivot(ui->screen_img_out, 0,0);
 	lv_img_set_angle(ui->screen_img_out, 0);                 
 }

@@ -33,7 +33,7 @@ void Menu_Switch(void)
 	static uint8_t err = 1;
 	if (Button_Value)
 	{
-		err=xQueueSend(Key_Queue,&Button_Value,0);
+		err = xQueueSend(Key_Queue,&Button_Value,0);
         if( err == errQUEUE_FULL )  
         {
             ESP_LOGE(TAG, "Key_Queue send err");
