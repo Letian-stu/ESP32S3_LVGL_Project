@@ -94,7 +94,7 @@ void Button_Init(void)
 	Button_Attach(&Button_UP, BUTTON_DOWN, Btn1_Down_CallBack);			//单击
 	Button_Attach(&Button_UP, BUTTON_DOUBLE, Btn1_Double_CallBack);		//双击
 	Button_Attach(&Button_UP, BUTTON_LONG, Btn1_Long_CallBack);			//长按按下
-	Button_Attach(&Button_UP, BUTTON_LONG_FREE, Btn1_Long_Free_CallBack); //长按松开
+	//Button_Attach(&Button_UP, BUTTON_LONG_FREE, Btn1_Long_Free_CallBack); //长按松开
 
 	Button_Create("Button_DOWN",
 				  &Button_DOWN,
@@ -103,7 +103,7 @@ void Button_Init(void)
 	Button_Attach(&Button_DOWN, BUTTON_DOWN, Btn2_Down_CallBack);			//单击
 	Button_Attach(&Button_DOWN, BUTTON_DOUBLE, Btn2_Double_CallBack);		//双击
 	Button_Attach(&Button_DOWN, BUTTON_LONG, Btn2_Long_CallBack);			//长按按下
-	Button_Attach(&Button_DOWN, BUTTON_LONG_FREE, Btn2_Long_Free_CallBack); //长按松开
+	//Button_Attach(&Button_DOWN, BUTTON_LONG_FREE, Btn2_Long_Free_CallBack); //长按松开
 
 	Get_Button_Event(&Button_UP);
 	Get_Button_Event(&Button_DOWN);

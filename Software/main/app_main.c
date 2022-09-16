@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:12
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-16 17:57
+ * @LastEditTime: 2022-09-16 18:53
  * @FilePath: \Software\main\app_main.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -19,7 +19,7 @@
 #include "button.h"
 #include "gui_guider.h"
 #include "app_task.h"
-#include "app_sem.h"
+#include "app_sem_queue.h"
 
 static const char *TAG = "Main";
 
@@ -27,7 +27,8 @@ extern uint8_t *Image_p[];
 
 TaskHandle_t Key_Scan_Task_Handler;
 TaskHandle_t Menu_Select_Task_Handler;
-QueueHandle_t Key_Num_Queue;
+TaskHandle_t Back_Select_Task_Handler;
+
 
 void Menu_Switch(void)
 {
@@ -49,7 +50,7 @@ void KEY_Scan_thread_entry(void *arg)
 	while (1)
 	{
 		Button_Process();
-		vTaskDelay(30 / portTICK_PERIOD_MS);
+		vTaskDelay(20 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -60,18 +61,20 @@ void app_main(void)
 	esp_log_level_set("Task", ESP_LOG_INFO);  
 
     ESP_LOGI(TAG, "Hello Tian!");
-	SemaphoreInit();
+	Semaphore_Queue_Init();
+
 	xTaskCreatePinnedToCore(bootguiTask, 	"GUI_Start", 	4096, 	NULL, 1, NULL, 1);
 	while (!xSemaphoreTake(StartSysInitSemaphore, 0))
     {
 		lv_task_handler();
 		vTaskDelay(20 / portTICK_PERIOD_MS);
     }
-	
-	Key_Num_Queue = xQueueCreate(1, sizeof(uint8_t));
-	xTaskCreatePinnedToCore(appguiTask, 	"App_Gui", 		4096*2, NULL, 2, NULL, 1);	
-	xTaskCreate(KEY_Scan_thread_entry, 		"Key_Scan", 	4096, 	NULL, 3, &Key_Scan_Task_Handler);
-	xTaskCreate(Menu_Select_thread_entry, 	"Menu_Select", 	4096, 	NULL, 3, &Menu_Select_Task_Handler);		
+	xTaskCreatePinnedToCore(appguiTask, 	"App_Gui", 		4096*3, NULL, 2, NULL, 1);	
+	vTaskDelay(100 / portTICK_PERIOD_MS);
+	xTaskCreate(KEY_Scan_thread_entry, 		"Key_Scan", 	4096, 	NULL, 2, &Key_Scan_Task_Handler);
+	xTaskCreate(Menu_Select_thread_entry, 	"Menu_Select", 	4096, 	NULL, 3, &Menu_Select_Task_Handler);	
+	xTaskCreate(Back_Select_thread_entry, 	"Back_Select", 	4096, 	NULL, 4, &Back_Select_Task_Handler);
+
 	ESP_LOGI(TAG,"System Init OK!");
 	crate_ui_animation(&guider_ui, 0, Image_p[1], Image_p[2]);
     while (1)

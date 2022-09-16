@@ -48,6 +48,7 @@
     "string_view": "c",
     "initializer_list": "c",
     "regex": "c",
-    "app_task.h": "c"
+    "app_task.h": "c",
+    "app_sem_queue.h": "c"
   }
 }

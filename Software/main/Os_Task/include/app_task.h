@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-06 18:29
- * @FilePath: \ESP32_LVGL\main\app_task.h
+ * @LastEditTime: 2022-09-16 18:33
+ * @FilePath: \Software\main\Os_Task\include\app_task.h
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -23,3 +23,5 @@
 #include "gui_guider.h"
 
 void Menu_Select_thread_entry(void *pvParameters);
+void Back_Select_thread_entry(void *pvParameters);
+

@@ -60,7 +60,7 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_main_main_default
 	static lv_style_t style_screen_main_main_default;
 	lv_style_reset(&style_screen_main_main_default);
-	lv_style_set_bg_color(&style_screen_main_main_default, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_bg_color(&style_screen_main_main_default, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_bg_opa(&style_screen_main_main_default, 0);
 	lv_obj_add_style(ui->screen, &style_screen_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
 
@@ -72,7 +72,7 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_img_in_main_main_default
 	static lv_style_t style_screen_img_in_main_main_default;
 	lv_style_reset(&style_screen_img_in_main_main_default);
-	lv_style_set_img_recolor(&style_screen_img_in_main_main_default, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_img_recolor(&style_screen_img_in_main_main_default, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_img_recolor_opa(&style_screen_img_in_main_main_default, 0);
 	lv_style_set_img_opa(&style_screen_img_in_main_main_default, 255);
 	lv_obj_add_style(ui->screen_img_in, &style_screen_img_in_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);
@@ -89,7 +89,7 @@ void setup_scr_screen(lv_ui *ui){
 	//Write style state: LV_STATE_DEFAULT for style_screen_img_out_main_main_default
 	static lv_style_t style_screen_img_out_main_main_default;
 	lv_style_reset(&style_screen_img_out_main_main_default);
-	lv_style_set_img_recolor(&style_screen_img_out_main_main_default, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_img_recolor(&style_screen_img_out_main_main_default, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_img_recolor_opa(&style_screen_img_out_main_main_default, 0);
 	lv_style_set_img_opa(&style_screen_img_out_main_main_default, 255);
 	lv_obj_add_style(ui->screen_img_out, &style_screen_img_out_main_main_default, LV_PART_MAIN|LV_STATE_DEFAULT);

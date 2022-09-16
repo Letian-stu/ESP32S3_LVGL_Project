@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-16 17:16
+ * @LastEditTime: 2022-09-16 18:48
  * @FilePath: \Software\main\Lvgl_Task\src\lvgl_init.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
@@ -111,12 +111,12 @@ void Boot_UI_Init(lv_ui *ui)
     lv_anim_set_var(&a, bar);
     lv_anim_set_values(&a, 0, 100);//开始和结束的值
     lv_anim_set_exec_cb(&a, set_value);//设置动画函数
-    lv_anim_set_time(&a, 2000);//设置动画的持续时间
+    lv_anim_set_time(&a, 1900);//设置动画的持续时间
     //lv_anim_set_playback_time(&a, 1000);//恢复动画时间
     lv_anim_start(&a);
 
-    lv_obj_del_delayed(label_1, 2200);
-    lv_obj_del_delayed(bar, 2200);
+    lv_obj_del_delayed(label_1, 2000);
+    lv_obj_del_delayed(bar, 2000);
 }
 
 void APP_UI_Init(void)
@@ -160,12 +160,10 @@ void bootguiTask(void *pvParameter)
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
 
     Boot_UI_Init(&guider_ui);//基础UI渲染函数
-    vTaskDelay(2200 / portTICK_PERIOD_MS);
-
+    vTaskDelay(2100 / portTICK_PERIOD_MS);
+    xSemaphoreGive(StartSysInitSemaphore);
     free(buf1);
     free(buf2);
-
-    xSemaphoreGive(StartSysInitSemaphore);
     vTaskDelete(NULL);
 }
 
@@ -207,7 +205,7 @@ void appguiTask(void *pvParameter)
     APP_UI_Init();//基础UI渲染函数
     while(1)
     {
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(3000));
     }
     /* A task should NEVER return */
     free(buf1);
