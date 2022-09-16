@@ -25,14 +25,9 @@
 #include "lvgl_helpers.h"
 #include "lvgl/src/hal/lv_hal_disp.h"
 #include "esp_log.h"
-
+#include "app_sem.h"
 
 #define LV_TICK_PERIOD_MS 1
-
-lv_obj_t *background;
-lv_obj_t *label_1;
-lv_obj_t *bar;
-
 
 void APP_UI_Init(void);
 void Boot_UI_Init(lv_ui *ui);

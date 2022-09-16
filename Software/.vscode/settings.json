@@ -47,6 +47,7 @@
     "vector": "c",
     "string_view": "c",
     "initializer_list": "c",
-    "regex": "c"
+    "regex": "c",
+    "app_task.h": "c"
   }
 }

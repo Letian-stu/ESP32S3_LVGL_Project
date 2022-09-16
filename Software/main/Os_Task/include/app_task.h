@@ -22,4 +22,4 @@
 
 #include "gui_guider.h"
 
-void GUI_Change_thread_entry(void *pvParameters);
+void Menu_Select_thread_entry(void *pvParameters);

@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:12
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 14:21
- * @FilePath: \ESP32S3_LVGL_Project\main\Os_Task\src\app_task.c
+ * @LastEditTime: 2022-09-16 17:47
+ * @FilePath: \Software\main\Os_Task\src\app_task.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
  */
@@ -22,24 +22,24 @@
 #include "app_sem.h"
 #include "button.h"
 
-// static const char *TAG = "task";
+static const char *TAG = "Task";
 
-extern QueueHandle_t Key_Queue;
+extern QueueHandle_t Key_Num_Queue;
 
-uint8_t *Image_p[] = {NULL,&_cap_150x150, &_game_150x150, &_konhz_150x150, &_set_150x150};
+uint8_t *Image_p[] = {NULL, &_cap_150x150, &_game_150x150, &_konhz_150x150, &_set_150x150};
 
-void GUI_Change_thread_entry(void *pvParameters)
+void Menu_Select_thread_entry(void *pvParameters)
 {
 	static uint8_t Select_Value = 0;
 	static uint8_t GUI_Menu_Num = 1;
 	static uint8_t Last_GUI_Menu_Num = 1;
-	static uint8_t Select_Back_Num = 0;
+	//static uint8_t Select_Back_Num = 0;
 	static uint8_t Change_Direction = 0;
 	#define LastMenuNum 5
 	while (1)
 	{
 		Select_Value = 0;
-		if (xQueueReceive(Key_Queue, &Select_Value, portMAX_DELAY))
+		if (xQueueReceive(Key_Num_Queue, &Select_Value, portMAX_DELAY))
 		{
 			switch(Select_Value)
 			{
@@ -66,8 +66,7 @@ void GUI_Change_thread_entry(void *pvParameters)
 				default:
 					break;
 			}
-
-			printf("last = %d  now = %d ", Last_GUI_Menu_Num, GUI_Menu_Num);
+			ESP_LOGD(TAG, "last = %d  now = %d ", Last_GUI_Menu_Num, GUI_Menu_Num);
 			if (Last_GUI_Menu_Num == LastMenuNum - 1 && GUI_Menu_Num == 1)
 			{
 				Change_Direction = 1;//xia
@@ -84,7 +83,7 @@ void GUI_Change_thread_entry(void *pvParameters)
 			{
 				Change_Direction = 0;
 			}
-			printf("Dir = %d \r\n", Change_Direction);	
+			ESP_LOGD(TAG, "Dir = %d", Change_Direction);	
 			if(Last_GUI_Menu_Num != GUI_Menu_Num)
 			{
 				crate_ui_animation(&guider_ui, Change_Direction, Image_p[GUI_Menu_Num], Image_p[Last_GUI_Menu_Num]);

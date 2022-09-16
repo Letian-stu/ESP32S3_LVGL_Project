@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-11 15:28
- * @FilePath: \ESP32S3_LVGL_Project\main\Lvgl_Task\src\lvgl_init.c
+ * @LastEditTime: 2022-09-16 17:16
+ * @FilePath: \Software\main\Lvgl_Task\src\lvgl_init.c
  * @Description: 
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -68,6 +68,10 @@ static void event_cb(lv_event_t * e)
 
 void Boot_UI_Init(lv_ui *ui)
 {	
+    lv_obj_t *background;
+    lv_obj_t *label_1;
+    lv_obj_t *bar;
+
     background = lv_scr_act();   /*Create a parent object on the current screen*/
     lv_obj_set_pos(background, 0, 0);
     lv_obj_set_size(background, 240, 240); /*Set the size of the parent*/
@@ -122,25 +126,17 @@ void APP_UI_Init(void)
 /*********************** GUI_SHOW_CODE_END***********************/
 void bootguiTask(void *pvParameter)
 {
-
-#define CONFIG_LV_TFT_DISPLAY_MONOCHROME
-
     lv_init();
     /* Initialize SPI or I2C bus used by the drivers */
     lvgl_driver_init();
 
     lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
-   // memset(buf1,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
+    //memset(buf1,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
     assert(buf1 != NULL);
-
     /* Use double buffered when not working with monochrome displays */
-#ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
     lv_color_t* buf2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
     //memset(buf2,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
     assert(buf2 != NULL);
-#else
-    static lv_color_t *buf2 = NULL;
-#endif
 
     static lv_disp_draw_buf_t disp_buf;
     uint32_t size_in_px = DISP_BUF_SIZE;
@@ -162,32 +158,27 @@ void bootguiTask(void *pvParameter)
     esp_timer_handle_t periodic_timer;
     ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
-    ESP_LOGI(TAG, "Start UI Init!");
 
     Boot_UI_Init(&guider_ui);//基础UI渲染函数
     vTaskDelay(2200 / portTICK_PERIOD_MS);
+
     free(buf1);
-#ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
     free(buf2);
-#endif
-    xTaskCreatePinnedToCore(appguiTask, "appgui", 4096 * 2, NULL, 2, NULL, 1);
+
+    xSemaphoreGive(StartSysInitSemaphore);
     vTaskDelete(NULL);
 }
 
 void appguiTask(void *pvParameter)
 {
     lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
-   // memset(buf1,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
+    //memset(buf1,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
     assert(buf1 != NULL);
 
     /* Use double buffered when not working with monochrome displays */
-#ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
     lv_color_t* buf2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
     //memset(buf2,0x00ff,DISP_BUF_SIZE * sizeof(lv_color_t));
     assert(buf2 != NULL);
-#else
-    static lv_color_t *buf2 = NULL;
-#endif
 
     static lv_disp_draw_buf_t disp_buf;
     uint32_t size_in_px = DISP_BUF_SIZE;
@@ -202,14 +193,6 @@ void appguiTask(void *pvParameter)
     disp_drv.flush_cb = disp_driver_flush;
     disp_drv.draw_buf = &disp_buf;
     lv_disp_drv_register(&disp_drv);
-    /* Register an input device when enabled on the menuconfig */
-// #if CONFIG_LV_TOUCH_CONTROLLER != TOUCH_CONTROLLER_NONE
-//     lv_indev_drv_t indev_drv;
-//     lv_indev_drv_init(&indev_drv);
-//     indev_drv.read_cb = touch_driver_read;
-//     indev_drv.type = LV_INDEV_TYPE_POINTER;
-//     lv_indev_drv_register(&indev_drv);
-// #endif
 
     /* Create and start a periodic timer interrupt to call lv_tick_inc */
     const esp_timer_create_args_t periodic_timer_args = {
@@ -228,9 +211,6 @@ void appguiTask(void *pvParameter)
     }
     /* A task should NEVER return */
     free(buf1);
-#ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
     free(buf2);
-#endif
-
     vTaskDelete(NULL);
 }

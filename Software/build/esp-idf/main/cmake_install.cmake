@@ -1,4 +1,4 @@
-# Install script for directory: D:/Desktop/github/ESP32S3_LVGL_Project/main
+# Install script for directory: D:/Desktop/github/ESP32S3_LVGL_Project/Software/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

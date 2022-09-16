@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:12
  * @LastEditors: StuTian
- * @LastEditTime: 2022-09-13 19:41
- * @FilePath: \ESP32S3_LVGL_Project\main\app_main.c
+ * @LastEditTime: 2022-09-16 17:57
+ * @FilePath: \Software\main\app_main.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
  */
@@ -21,22 +21,23 @@
 #include "app_task.h"
 #include "app_sem.h"
 
-static const char *TAG = "main";
+static const char *TAG = "Main";
 
-SemaphoreHandle_t xGuiSemaphore;
-TaskHandle_t KEY_Scan_Task_Handler;
-TaskHandle_t GUI_Change_Task_Handler;
-QueueHandle_t Key_Queue;
+extern uint8_t *Image_p[];
+
+TaskHandle_t Key_Scan_Task_Handler;
+TaskHandle_t Menu_Select_Task_Handler;
+QueueHandle_t Key_Num_Queue;
 
 void Menu_Switch(void)
 {
 	static uint8_t err = 1;
 	if (Button_Value)
 	{
-		err = xQueueSend(Key_Queue,&Button_Value,0);
+		err = xQueueSend(Key_Num_Queue,&Button_Value,0);
         if( err == errQUEUE_FULL )  
         {
-            ESP_LOGE(TAG, "Key_Queue send err");
+            ESP_LOGE(TAG, "Key_Num_Queue send err");
         }
 		Button_Value = 0;
 	}
@@ -54,14 +55,25 @@ void KEY_Scan_thread_entry(void *arg)
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "Hello World!");
+	esp_log_level_set("Main", ESP_LOG_INFO);   
+	esp_log_level_set("Key",  ESP_LOG_ERROR);  
+	esp_log_level_set("Task", ESP_LOG_INFO);  
+
+    ESP_LOGI(TAG, "Hello Tian!");
 	SemaphoreInit();
-	xGuiSemaphore = xSemaphoreCreateMutex();
-	Key_Queue = xQueueCreate(1, sizeof(uint8_t));
 	xTaskCreatePinnedToCore(bootguiTask, 	"GUI_Start", 	4096, 	NULL, 1, NULL, 1);
-	xTaskCreate(KEY_Scan_thread_entry, 		"KEY_Scan", 	4096, 	NULL, 2, &KEY_Scan_Task_Handler);
-	xTaskCreate(GUI_Change_thread_entry, 	"GUI_Change", 	4096, 	NULL, 3, &GUI_Change_Task_Handler);
-    
+	while (!xSemaphoreTake(StartSysInitSemaphore, 0))
+    {
+		lv_task_handler();
+		vTaskDelay(20 / portTICK_PERIOD_MS);
+    }
+	
+	Key_Num_Queue = xQueueCreate(1, sizeof(uint8_t));
+	xTaskCreatePinnedToCore(appguiTask, 	"App_Gui", 		4096*2, NULL, 2, NULL, 1);	
+	xTaskCreate(KEY_Scan_thread_entry, 		"Key_Scan", 	4096, 	NULL, 3, &Key_Scan_Task_Handler);
+	xTaskCreate(Menu_Select_thread_entry, 	"Menu_Select", 	4096, 	NULL, 3, &Menu_Select_Task_Handler);		
+	ESP_LOGI(TAG,"System Init OK!");
+	crate_ui_animation(&guider_ui, 0, Image_p[1], Image_p[2]);
     while (1)
     {
 		Menu_Switch();
