@@ -1,3 +1,3 @@
 # ESP32S3_LVGL_Project
 
-## a esp32s3 board
+## a old project
