@@ -52,7 +52,7 @@
 #endif
 
 #ifndef BUTTON_DOUBLE_TIME
-#define BUTTON_DOUBLE_TIME 4 //双击间隔时间  (n-1)*调用周期  建议在200-600ms
+#define BUTTON_DOUBLE_TIME 8 //双击间隔时间  (n-1)*调用周期  建议在200-600ms
 #endif
 
 #ifndef BUTTON_LONG_TIME

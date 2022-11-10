@@ -4,16 +4,16 @@
 cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
-  "D:/esp32idf/espidf/esp-idf/components/bootloader/subproject"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix/tmp"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix/src/bootloader-stamp"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix/src"
-  "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/B_Code/espidf/esp32idf/esp-idf/components/bootloader/subproject"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix/tmp"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix/src"
+  "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/Desktop/lvgl_menu_wifi/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()

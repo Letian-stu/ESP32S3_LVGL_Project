@@ -1,4 +1,4 @@
-# Install script for directory: D:/esp32idf/espidf/esp-idf/components/soc
+# Install script for directory: D:/B_Code/espidf/esp32idf/esp-idf/components/soc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,12 +34,12 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "D:/esp32idf/esptools/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-objdump.exe")
+  set(CMAKE_OBJDUMP "D:/B_Code/espidf/idftools/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/Desktop/github/ESP32S3_LVGL_Project/Software/build/esp-idf/soc/esp32s3/cmake_install.cmake")
+  include("D:/Desktop/lvgl_menu_wifi/build/esp-idf/soc/esp32s3/cmake_install.cmake")
 
 endif()
 

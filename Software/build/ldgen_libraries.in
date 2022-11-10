@@ -71,7 +71,7 @@ $<TARGET_FILE:__idf_usb>
 $<TARGET_FILE:__idf_ulp>
 $<TARGET_FILE:__idf_wifi_provisioning>
 $<TARGET_FILE:__idf_main>
-$<TARGET_FILE:__idf_led_strip>
+$<TARGET_FILE:__idf_esp-dsp>
 $<TARGET_FILE:__idf_button>
 $<TARGET_FILE:__idf_easyio_lib>
 $<TARGET_FILE:__idf_lvgl>

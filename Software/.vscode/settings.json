@@ -49,6 +49,25 @@
     "initializer_list": "c",
     "regex": "c",
     "app_task.h": "c",
-    "app_sem_queue.h": "c"
-  }
+    "app_sem_queue.h": "c",
+    "lv_tileview.h": "c",
+    "*.tcc": "c",
+    "optional": "c",
+    "istream": "c",
+    "ostream": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "lv_btn.h": "c",
+    "limits": "c",
+    "string.h": "c",
+    "mutex": "c",
+    "esp_wifi.h": "c",
+    "nvs_flash.h": "c",
+    "adc.h": "c"
+  },
+  "idf.flashType": "UART"
 }

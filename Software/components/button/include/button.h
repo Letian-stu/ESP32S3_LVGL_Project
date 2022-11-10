@@ -16,12 +16,12 @@
 enum
 {
     BT_NONE,
-    BT1_DOWN,
+    BT1_DOWN, //1
     BT1_DOUBLE,
     BT1_LONG,
     BT1_LONGFREE,
 
-    BT2_DOWN,
+    BT2_DOWN, //5
     BT2_DOUBLE,
     BT2_LONG,
     BT2_LONGFREE,

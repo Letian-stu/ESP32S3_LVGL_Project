@@ -30,9 +30,7 @@
 #define LV_TICK_PERIOD_MS 1
 
 void APP_UI_Init(void);
-void Boot_UI_Init(lv_ui *ui);
 
 void lv_tick_task(void *arg);
-void bootguiTask(void *pvParameter);
 void appguiTask(void *pvParameter);
 
